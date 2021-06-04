@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string zashifr(string s, int key)
+{
+    string n_s = s;
+    int dl, n_st, index, k;
+    dl = s.length();
+    n_st = (dl - 1) / key + 1;
+    k = 0;
+    for (int i = 0; i < n_st; i++) {
+        for (int j = 0; j < key; j++) {
+            index = i+j*n_st;
+            if (index < dl) {
+                n_s[k] = s[index];
+                k += 1;
+            }
+        }
+    }
+    return n_s;
+}
+string rasshifr(string s, int key)
+{
+    string n_s = s;
+    int dl, n_st, index, k;
+    dl = s.length();
+    n_st = (dl - 1) / key + 1;
+    k = 0;
+    for (int i = 0; i < n_st; i++) {
+        for (int j = 0; j < key; j++) {
+            index = i+j*n_st;
+            if (index < dl) {
+                n_s[index] = s[k];
+                k+=1;
+            }
+        }
+    }
+    return n_s;
+}
+
+int main(int argc, char **argv)
+{
+    string s;
+    cout << "Введите строку" << endl;
+    cin >> s;
+    int dl;
+    dl = s.length();
+    int i;
+    for (i = 0; i < dl; i++) {
+        if ((int)(s[i]) < 65 or (int)(s[i]) > 90) {
+            break;
+        }
+    }
+    if (i != dl) {
+        cout << "Строка состоит не из прописных букв английского алфавита" << endl;
+    } else {
+        int key;
+        cout << "Введите ключ" << endl;
+        cin >> key;
+        if (key <= dl/2 and key > 0) {
+            cout << "Для зашифровки введите 0 / Для расшифровки введите 1" << endl;
+            int dei;
+            string new_s;
+            cin >> dei;
+            if (dei == 0) {
+                new_s = zashifr(s, key);
+                cout << "Зашифрованная строка:" << endl;
+                cout << new_s << endl;
+            } else if (dei == 1) {
+                new_s = rasshifr(s, key);
+                cout << "Расшифрованная строка:" << endl;
+                cout << new_s << endl;
+            } else {
+                cout << "Данного действия не существует" << endl;
+            }
+        } else {
+            cout << "Ключ не правильный" << endl;
+        }
+    }
+
+    return 0;
+}
